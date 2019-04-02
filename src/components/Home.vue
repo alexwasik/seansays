@@ -35,7 +35,10 @@ export default {
         "Fuck Yeah!",
         "You wanna spit in my face too?",
         "You doin' anything for lunch?",
-        "Who wants a beer?"
+        "Who wants a beer?",
+        "That really hurts!",
+        "I'm scared right now.",
+        "I almost pissed myself."
         ],
       phrase: ''
     }
