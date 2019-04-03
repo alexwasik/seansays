@@ -43,7 +43,8 @@ export default {
         "That was really scary. I almost cried.",
         "I'm gonna cry",
         "I almost quit.",
-        "Maaaan...."
+        "Maaaan....",
+        "Anybody wanna walk down to Joe's?"
         ],
       phrase: ''
     }
