@@ -40,7 +40,10 @@ export default {
         "I'm scared right now.",
         "I almost pissed myself.",
         "I want a puddin' donut.",
-        "That was really scary. I almost cried."
+        "That was really scary. I almost cried.",
+        "I'm gonna cry",
+        "I almost quit.",
+        "Maaaan...."
         ],
       phrase: ''
     }
