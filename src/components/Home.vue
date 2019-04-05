@@ -22,11 +22,15 @@
           <div v-if="phrase">"{{ phrase }}"</div>
         </h3>
       </div>
+      <progress class="progress is-primary"
+        :value="time">{{time}}</progress>
+        {{ time }}
     </div>
   </div>
 </template>
 
 <script>
+import { setInterval, clearInterval, clearTimeout } from 'timers';
 export default {
   name: 'Home',
   data () {
@@ -44,9 +48,13 @@ export default {
         "I'm gonna cry",
         "I almost quit.",
         "Maaaan....",
-        "Anybody wanna walk down to Joe's?"
+        "Anybody wanna walk down to Joe's?",
+        "Roll Tide!"
         ],
-      phrase: ''
+      phrase: '',
+      time: 60,
+      isRunning: false,
+      interval: null
     }
   },
   methods: {
@@ -55,7 +63,22 @@ export default {
     },
     reset () {
       this.phrase = ''
+    },
+    timer () {
+      if (this.time <= 0) {
+        clearInterval(this.interval)
+        doTheThing()
+      } else {
+        this.interval = setInterval(this.decrementTime, 1000);
+        console.log('time', this.time);
+      }
+    },
+    decrementTime () {
+      this.time = parseInt(this.time) - 1
     }
+  },
+  mounted () {
+    this.timer()
   }
 }
 </script>
