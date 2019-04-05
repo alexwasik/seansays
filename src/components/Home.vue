@@ -22,9 +22,6 @@
           <div v-if="phrase">"{{ phrase }}"</div>
         </h3>
       </div>
-      <progress class="progress is-primary"
-        :value="time">{{time}}</progress>
-        {{ time }}
     </div>
   </div>
 </template>
@@ -52,9 +49,7 @@ export default {
         "Roll Tide!"
         ],
       phrase: '',
-      time: 60,
-      isRunning: false,
-      interval: null
+
     }
   },
   methods: {
@@ -63,22 +58,7 @@ export default {
     },
     reset () {
       this.phrase = ''
-    },
-    timer () {
-      if (this.time <= 0) {
-        clearInterval(this.interval)
-        doTheThing()
-      } else {
-        this.interval = setInterval(this.decrementTime, 1000);
-        console.log('time', this.time);
-      }
-    },
-    decrementTime () {
-      this.time = parseInt(this.time) - 1
     }
-  },
-  mounted () {
-    this.timer()
   }
 }
 </script>
