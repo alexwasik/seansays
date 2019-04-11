@@ -22,32 +22,41 @@
           <div v-if="phrase">"{{ phrase }}"</div>
         </h3>
       </div>
+      <InputBox />
     </div>
+
   </div>
 </template>
 
 <script>
 import { setInterval, clearInterval, clearTimeout } from 'timers';
+import { dbRef } from '../config'
+import InputBox from './InputBox'
+
 export default {
   name: 'Home',
   data () {
     return {
-      phrases: [
-        "Fuck Yeah!",
-        "You wanna spit in my face too?",
-        "You doin' anything for lunch?",
-        "Who wants a beer?",
-        "That really hurts!",
-        "I'm scared right now.",
-        "I almost pissed myself.",
-        "I want a puddin' donut.",
-        "That was really scary. I almost cried.",
-        "I'm gonna cry",
-        "I almost quit.",
-        "Maaaan....",
-        "Anybody wanna walk down to Joe's?",
-        "Roll Tide!"
-        ],
+      show: false,
+      phrases: [],
+      // phrases: [
+      //   "Fuck Yeah!",
+      //   "You wanna spit in my face too?",
+      //   "You doin' anything for lunch?",
+      //   "Who wants a beer?",
+      //   "That really hurts!",
+      //   "I'm scared right now.",
+      //   "I almost pissed myself.",
+      //   "I want a puddin' donut.",
+      //   "That was really scary. I almost cried.",
+      //   "I'm gonna cry",
+      //   "I almost quit.",
+      //   "Maaaan....",
+      //   "Anybody wanna walk down to Joe's?",
+      //   "Roll Tide!",
+      //   "It doesn't suck.",
+      //   "I might cry."
+      //   ],
       phrase: '',
 
     }
@@ -58,7 +67,28 @@ export default {
     },
     reset () {
       this.phrase = ''
+    },
+    addPhrase () {
+      dbRef.push('foo', (error) => {
+        if (error) {
+          console.log('error');
+        } else {
+          console.log('Data Saved!');
+        }
+      })
+      console.log('add phrase');
     }
+  },
+  mounted () {
+    dbRef.on('value', (snapshot) => {
+      snapshot.forEach((item) => {
+        this.phrases.push(item.val())
+      })
+      console.log('phrases', this.phrases);
+    })
+  },
+  components: {
+    InputBox
   }
 }
 </script>
@@ -67,6 +97,17 @@ export default {
   .word-padding {
     padding-top: 20px;
   }
+  .bottom-right {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>
 
 
