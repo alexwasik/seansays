@@ -76,8 +76,10 @@ export default {
         snapshot.forEach((item) => {
           this.phrases.push(item.val())
         })
-        console.log('phrases', this.phrases);
+        console.log('phrases', this.phrases)
     }
+    console.log('env', process.env)
+    console.log('process', process);
   )},
   components: {
     InputBox
