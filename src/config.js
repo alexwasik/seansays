@@ -10,8 +10,6 @@ const config = {
   messagingSenderId: process.env.VUE_APP_SENDER_ID
 };
 
-console.log('env', process.env)
-
 const fb = Firebase.initializeApp(config);
 const db = fb.database()
 export const dbRef = db.ref('phrases')

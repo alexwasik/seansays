@@ -45,7 +45,7 @@ export default {
       //   "You doin' anything for lunch?",
       //   "Who wants a beer?",
       //   "That really hurts!",
-      //   "I'm scared right now.",
+      //   "I'm really scared right now.",
       //   "I almost pissed myself.",
       //   "I want a puddin' donut.",
       //   "That was really scary. I almost cried.",
@@ -76,7 +76,6 @@ export default {
         snapshot.forEach((item) => {
           this.phrases.push(item.val())
         })
-        console.log('phrases', this.phrases)
     }
   )},
   components: {
