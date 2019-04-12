@@ -11,8 +11,6 @@ const config = {
 };
 
 console.log('env', process.env)
-console.log('process', process)
-
 
 const fb = Firebase.initializeApp(config);
 const db = fb.database()
