@@ -5,7 +5,8 @@ module.exports = {
     plugins: [
       new webpack.DefinePlugin({
         'process.env': {
-          'API_URL': JSON.stringify(process.env.apiUrl)
+          'API_URL': JSON.stringify(process.env.apiUrl),
+          'VUE_APP_DB_URL': JSON.stringify(process.env.vueAppDbUrl)
         }
       })
     ]
