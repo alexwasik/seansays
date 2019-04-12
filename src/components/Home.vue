@@ -71,8 +71,6 @@ export default {
     }
   },
   mounted () {
-    console.log('env', process.env)
-    console.log('process', process);
     dbRef.on('value', (snapshot) => {
         this.phrases = []
         snapshot.forEach((item) => {
