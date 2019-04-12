@@ -1,4 +1,5 @@
-import Firebase from 'firebase'
+import Firebase from 'firebase/app'
+import 'firebase/database'
 
 const config = {
   apiKey: process.env.VUE_APP_API_KEY,
@@ -11,6 +12,6 @@ const config = {
 
 const fb = Firebase.initializeApp(config);
 const db = fb.database()
-
 export const dbRef = db.ref('phrases')
+
 

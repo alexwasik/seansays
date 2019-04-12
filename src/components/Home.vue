@@ -55,7 +55,8 @@ export default {
       //   "Anybody wanna walk down to Joe's?",
       //   "Roll Tide!",
       //   "It doesn't suck.",
-      //   "I might cry."
+      //   "I might cry.",
+      //   "I could die on this thing."
       //   ],
       phrase: '',
 
@@ -67,26 +68,17 @@ export default {
     },
     reset () {
       this.phrase = ''
-    },
-    addPhrase () {
-      dbRef.push('foo', (error) => {
-        if (error) {
-          console.log('error');
-        } else {
-          console.log('Data Saved!');
-        }
-      })
-      console.log('add phrase');
     }
   },
   mounted () {
     dbRef.on('value', (snapshot) => {
-      snapshot.forEach((item) => {
-        this.phrases.push(item.val())
-      })
-      console.log('phrases', this.phrases);
-    })
-  },
+        this.phrases = []
+        snapshot.forEach((item) => {
+          this.phrases.push(item.val())
+        })
+        console.log('phrases', this.phrases);
+    }
+  )},
   components: {
     InputBox
   }

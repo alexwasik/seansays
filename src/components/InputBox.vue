@@ -1,12 +1,26 @@
 <template>
   <div class="corner_form">
     <div class="corner_form__container">
-      <span class="icon is-medium">
+
+      <span class="icon is-medium"
+        v-if="show">
         <button class="button is-medium is-white"
-          @click="show = !show">
-          <CommentPlusOutline />
+          @click="toggleShow">
+
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#000000" d="M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M19,19H5V5H19V19M17,8.4L13.4,12L17,15.6L15.6,17L12,13.4L8.4,17L7,15.6L10.6,12L7,8.4L8.4,7L12,10.6L15.6,7L17,8.4Z" />
+          </svg>
         </button>
       </span>
+      <span v-else>
+        <button class="button is-medium is-white"
+          @click="toggleShow">
+          <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+            <path fill="#000000" d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M10,16V19.08L13.08,16H20V4H4V16H10M11,6H13V9H16V11H13V14H11V11H8V9H11V6Z" />
+          </svg>
+        </button>
+      </span>
+
       <transition name='fade'>
         <div v-if="show">
           <div class="field corner_form__form">
@@ -14,11 +28,12 @@
             <input class="input"
               type="text"
               v-model="input"
-              placeholder="Foo" />
+              placeholder="Sean Says..." />
             <div class="level-right">
               <div class="level-item">
                 <span class="icon is-right icon-padding">
-                  <i @click="addPhrase">
+                  <i class="pointer"
+                    @click="addPhrase">
                     <svg style="width:24px;height:24px" viewBox="0 0 24 24">
                       <path fill="#000" d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
                     </svg>
@@ -26,6 +41,7 @@
                 </span>
               </div>
             </div>
+            <p v-if="error">{{ error }}</p>
             </form>
           </div>
         </div>
@@ -35,23 +51,38 @@
 </template>
 
 <script>
-import CommentPlusOutline from 'vue-material-design-icons/CommentPlusOutline.vue'
+import { dbRef } from '../config'
 import Send from 'vue-material-design-icons/Send.vue'
 
 export default {
   data () {
     return {
       show: false,
-      input: null
+      input: null,
+      error: ''
     }
   },
   methods: {
     addPhrase () {
+      if (this.input && !this.input == "") {
+        dbRef.push(this.input, (error) => {
+          if (error) {
+            console.log('error');
+          }
+        })
+        this.error = ""
+        this.input = null
+        this.toggleShow()
+      } else {
+        this.error = "Please enter a value"
+      }
+    },
+    toggleShow() {
+      this.input = null
       this.show = !this.show
     }
   },
   components: {
-    CommentPlusOutline,
     Send
   }
 }
@@ -86,6 +117,10 @@ export default {
   }
   .icon-padding {
     padding-top: 20px;
+  }
+
+  .pointer {
+    cursor: pointer;
   }
 
   .fade-enter-active, .fade-leave-active {
