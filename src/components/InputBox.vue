@@ -1,5 +1,5 @@
 <template>
-  <div class="corner_form">
+  <div class="corner_form" @keydown.esc="closeForm">
     <div class="corner_form__container">
 
       <span class="icon is-medium"
@@ -25,10 +25,11 @@
         <div v-if="show">
           <div class="field corner_form__form">
             <form @submit.prevent="addPhrase">
-            <input class="input"
-              type="text"
-              v-model="input"
-              placeholder="Sean Says..." />
+              <input class="input"
+                type="text"
+                v-model="input"
+                v-focus
+                placeholder="Sean Says..." />
             <div class="level-right">
               <div class="level-item">
                 <span class="icon is-right icon-padding">
@@ -64,7 +65,7 @@ export default {
   },
   methods: {
     addPhrase () {
-      if (this.input && !this.input == "") {
+      if (this.validPhrase(this.input)) {
         dbRef.push(this.input, (error) => {
           if (error) {
             console.log('error');
@@ -79,12 +80,36 @@ export default {
     },
     toggleShow() {
       this.input = null
+      this.error = ''
       this.show = !this.show
+    },
+    validPhrase (input) {
+      switch (input) {
+        case null:
+        case "":
+        case " ":
+        case ".":
+          return false
+          break
+        default:
+          return true
+          break;
+      }
+    },
+    closeForm () {
+      this.show = false
     }
   },
   components: {
     Send
+  },
+  directives: {
+  focus: {
+    inserted: function (el) {
+      el.focus()
+    }
   }
+}
 }
 </script>
 
@@ -105,14 +130,6 @@ export default {
       border-radius: 8px;
       width: 300px;
       padding: 16px 16px 16px;
-    }
-
-    &__toggle {
-        position: absolute;
-        z-index: 5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
   }
   .icon-padding {
