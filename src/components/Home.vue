@@ -22,7 +22,7 @@
           <div v-if="phrase">"{{ phrase }}"</div>
         </h3>
       </div>
-      <InputBox />
+      <InputBox :list="phrases" />
     </div>
 
   </div>
@@ -37,29 +37,9 @@ export default {
   name: 'Home',
   data () {
     return {
-      show: false,
-      phrases: [],
-      // phrases: [
-      //   "Fuck Yeah!",
-      //   "You wanna spit in my face too?",
-      //   "You doin' anything for lunch?",
-      //   "Who wants a beer?",
-      //   "That really hurts!",
-      //   "I'm really scared right now.",
-      //   "I almost pissed myself.",
-      //   "I want a puddin' donut.",
-      //   "That was really scary. I almost cried.",
-      //   "I'm gonna cry",
-      //   "I almost quit.",
-      //   "Maaaan....",
-      //   "Anybody wanna walk down to Joe's?",
-      //   "Roll Tide!",
-      //   "It doesn't suck.",
-      //   "I might cry.",
-      //   "I could die on this thing."
-      //   ],
       phrase: '',
-
+      phrases: [],
+      show: false
     }
   },
   methods: {
