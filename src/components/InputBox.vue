@@ -45,7 +45,7 @@
                 </div>
                 <p v-if="error">{{ error }}</p>
                 <small class="pointer icon-padding"
-                  @click="showModal = true">
+                  @click="showList">
                   List
                 </small>
               </form>
@@ -55,9 +55,17 @@
       </div>
     </div>
     <div v-if="showModal">
-      <ListModal :showList="list"
-        @close="closeForm">
-        <h3 class="title is-3" slot="header"> Sean Says...</h3>
+      <ListModal @close="closeForm">
+        <template v-slot:header>
+          Sean Says...
+        </template>
+        <template v-slot:body>
+          <ul>
+            <li v-for="(item, index) in list" :key="index">
+              {{ item }}
+            </li>
+          </ul>
+        </template>
       </ListModal>
     </div>
   </div>
@@ -98,7 +106,11 @@ export default {
         this.error = "Please enter a value"
       }
     },
-    toggleShow() {
+    showList () {
+      this.showModal = true
+      this.show = false
+    },
+    toggleShow () {
       this.input = null
       this.error = ''
       this.show = !this.show
@@ -110,10 +122,8 @@ export default {
         case " ":
         case ".":
           return false
-          break
         default:
           return true
-          break;
       }
     },
     closeForm () {

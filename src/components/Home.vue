@@ -1,5 +1,5 @@
 <template>
-  <div class="section">
+  <div class="section is-flex-mobile">
     <div class="container">
       <div class="columns">
         <div class="column is-half is-offset-5">

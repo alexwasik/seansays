@@ -1,31 +1,26 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-
-          <div class="modal-header">
-            <slot name="header">
-              default header
-            </slot>
-          </div>
-
-          <div class="modal-body">
-            <ul>
-              <li v-for="(item, index) in showList" :key=index>
-                {{ item }}
-              </li>
-            </ul>
-          </div>
-
-          <div class="modal-footer">
-            <slot name="footer">
-              <button class="button is-small modal-default-button" @click="$emit('close')">
-                X
-              </button>
-            </slot>
-          </div>
-        </div>
+    <div class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">
+            <slot name="header"></slot>
+          </p>
+          <button class="delete"
+            @click="$emit('close')"
+            aria-label="close">
+          </button>
+        </header>
+        <section class="modal-card-body">
+          <slot name="body"></slot>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-pulled-right"
+            @click="$emit('close')">
+            Close
+          </button>
+        </footer>
       </div>
     </div>
   </transition>
@@ -34,17 +29,17 @@
 
 <script>
 export default {
-  props: {
-    showList: {
-      required: true,
-      type: Array
-    }
-  }
+  // props: {
+  //   showList: {
+  //     required: false,
+  //     type: Array
+  //   }
+  // }
 }
 </script>
 
 <style scoped>
-  .modal-mask {
+  /* .modal-mask {
     position: fixed;
     z-index: 9998;
     top: 0;
@@ -83,7 +78,7 @@ export default {
 
   .modal-default-button {
     float: right;
-  }
+  } */
 
   /*
   * The following styles are auto-applied to elements with
